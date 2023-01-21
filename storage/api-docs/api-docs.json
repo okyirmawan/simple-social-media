@@ -1,0 +1,409 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Simple Sosial Media",
+        "description": "Soial Media for Dummies",
+        "contact": {
+            "email": "oky.irmawan@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Register user",
+                "description": "Register user to create account",
+                "operationId": "authRegister",
+                "requestBody": {
+                    "description": "Send user data for register",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "username",
+                                    "password",
+                                    "confirmPassword",
+                                    "address",
+                                    "phone",
+                                    "website",
+                                    "company"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@gmail.com"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "john"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    },
+                                    "address": {
+                                        "properties": {
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Kulas Light"
+                                            },
+                                            "suite": {
+                                                "type": "string",
+                                                "example": "Apt. 556"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "Gwenborough"
+                                            },
+                                            "zipcode": {
+                                                "type": "string",
+                                                "example": "92998-3874"
+                                            },
+                                            "geo": {
+                                                "properties": {
+                                                    "lat": {
+                                                        "type": "string",
+                                                        "example": "-37.3159"
+                                                    },
+                                                    "lng": {
+                                                        "type": "string",
+                                                        "example": "81.1496"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "phone": {
+                                        "type": "number",
+                                        "example": "0891231310"
+                                    },
+                                    "website": {
+                                        "type": "number",
+                                        "example": "johndoe.com"
+                                    },
+                                    "company": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Romaguera-Crona"
+                                            },
+                                            "catchPhrase": {
+                                                "type": "string",
+                                                "example": "Multi-layered client-server neural-net"
+                                            },
+                                            "bs": {
+                                                "type": "string",
+                                                "example": "harness real-time e-markets"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful response"
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation Error."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Log in user",
+                "description": "Login by email, password",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful response"
+                    },
+                    "401": {
+                        "description": "unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/follow": {
+            "post": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Following user",
+                "description": "Following user",
+                "operationId": "65ded67358f9bd6506e785fa68e8d83a",
+                "requestBody": {
+                    "description": "Pass user id you want to follow",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "following_user_id"
+                                ],
+                                "properties": {
+                                    "following_user_id": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful response"
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Follow was error."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/unfollow": {
+            "get": {
+                "tags": [
+                    "follow"
+                ],
+                "summary": "Unfollow user",
+                "description": "Unfollow user",
+                "operationId": "bbb728070d368cd905b72b17df8ff577",
+                "requestBody": {
+                    "description": "Pass user id you want to unfollow",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "following_user_id"
+                                ],
+                                "properties": {
+                                    "following_user_id": {
+                                        "type": "integer",
+                                        "format": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful response"
+                    },
+                    "400": {
+                        "description": "bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unfollow was error."
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Returns all user",
+                "description": "Return all users that already registers successfully.",
+                "operationId": "bf42b0b095c434a93b56840f678b0afc",
+                "responses": {
+                    "200": {
+                        "description": "successful response"
+                    }
+                }
+            }
+        },
+        "/api/followers": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "List followers",
+                "description": "Returns list of users who are followers of the currently logged in account, and you can filter by name",
+                "operationId": "b8f54e20c3824aec2a5fa7acb028ff2f",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "name",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "john"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful response"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
