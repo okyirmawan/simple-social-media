@@ -14,4 +14,4 @@ To use this API, you can follow the following steps.
 
 ## Demo
 
-Demo can be accessed at the following url https://jitera-project.herokuapp.com/api/documentation, where API documentation is provided using swagger.
+API Documentation can be accessed at the following url http://{{baseurl}}/api/documentation.
